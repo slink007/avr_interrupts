@@ -1,4 +1,5 @@
 #include <avr/io.h>
+#include "avr/interrupt.h"
 #include <util/delay.h>
 #include <stdlib.h>
 #include "lcd.h"
@@ -18,6 +19,7 @@ int main(void)
     PORTD |= (1 << 2) | (1 << 3);  // internal pull-ups on buttons at PORTD.2 & PORTD.3
     DDRC |= (1 << 0);	           // PORTC.0 acts as output
 
+    GICR |= (1 << INT0) | (1 << INT1);    // Unmask INT0 and INT1
     sei();
 
     while (1)
@@ -41,3 +43,15 @@ int main(void)
         _delay_ms(1000);
     }
 }
+
+
+ISR(INT0_vect)
+ {
+	 PORTC |= (1<<0);
+ }
+
+
+ ISR(INT1_vect)
+ {
+	 PORTC &= ~(1<<0);
+ }

@@ -50,3 +50,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# The build folder.  It somehow contains something not already listed
+build/
